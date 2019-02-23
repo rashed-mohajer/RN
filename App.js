@@ -19,7 +19,16 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+    constructor(props){
+        super(props)
+        this.state={
+            dname:''
+        }
+    }
     onPress(){
+        ToastExample.getDeviceName((err ,name) => {
+            this.setState({ dname:name})
+        });
       ToastExample.show('Awesome', ToastExample.SHORT);
   }
   render() {
@@ -30,10 +39,11 @@ export default class App extends Component<Props> {
         <Text style={styles.instructions}>{instructions}</Text>
           <TouchableOpacity
               style={styles.button}
-              onPress={this.onPress}
+              onPress={()=>{this.onPress()}}
           >
               <Text> Touch Here </Text>
           </TouchableOpacity>
+          <Text>{this.state.dname}</Text>
       </View>
     );
   }
